@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{#{% load staticf %}#}
+
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="/static/table.css">
+
+    <script src="/static/interation.js"></script>
+
+</head>
+
+<body>
+
+<form method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <button type="submit" name="value" value="student">学生表</button>
+    <button type="submit" name="value" value="course">课程表</button>
+    <button type="submit" name="value" value="sc">选课表</button>
+</form>
+
+
+<br>
+<table border="1">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>课程号</th>
+        <th>成绩</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in all_data %}
+        <tr>
+            <td>{{ data.Sno.Sno }}</td>
+            <td>{{ data.Cno.Cno }}</td>
+            <td>{{ data.Grade }}</td>
+            <td>
+                <span class="blue-text" onclick="handleEdit('{{ data.Sno }}')">修改</span>
+                <span class="blue-text" onclick="handleDelete('{{ data.Sno }}')">删除</span>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+
+</html>

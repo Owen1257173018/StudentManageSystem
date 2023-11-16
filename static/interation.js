@@ -1,0 +1,24 @@
+// function openUpdateForm(){
+//   document.getElementById("updateForm").style.display = "block";
+// }
+//
+// function closeUpdateForm(){
+//   document.getElementById("updateForm").style.display = "none";
+// }
+
+function openUpdateForm() {
+    document.getElementById("updateForm").style.display = "block";
+}
+
+function closeUpdateForm() {
+    document.getElementById("updateForm").style.display = "none";
+}
+
+function openAddForm() {
+    document.getElementById("addForm").style.display = "block";
+}
+
+function closeAddForm() {
+    document.getElementById("addForm").style.display = "none";
+}
+

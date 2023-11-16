@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="/static/table.css">
+
+    <script src="/static/interation.js"></script>
+
+</head>
+
+<script>
+    window.csrfToken = '{{ csrf_token }}';
+</script>
+
+<body>
+
+
+<form method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <button type="submit" name="value" value="student">学生表</button>
+    <button type="submit" name="value" value="course">课程表</button>
+    <button type="submit" name="value" value="sc">选课表</button>
+    <select name="select">
+        <option value="Cno">课程号</option>
+        <option value="Cname">课程名</option>
+        <option value="Cpno">先修课</option>
+        <option value="Ccredit">学分</option>
+    </select>
+    <input type="search" name="content" value="">
+    <button type="submit">提交</button>
+</form>
+
+
+
+<br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>课程号</th>
+        <th>课程名</th>
+        <th>先修课</th>
+        <th>学分</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in all_data %}
+        <tr>
+            <td>{{ data.Cno }}</td>
+            <td>{{ data.Cname }}</td>
+            {% if data.Cpno==None or data.Cpno=='' %}
+                <td>无</td>
+            {% else %}
+            <td>{{ data.Cpno }}</td>
+            {% endif %}
+            <td>{{ data.Ccredit }}</td>
+            <td>
+                <span>
+                 <button class="button-text" onclick="openUpdateForm()">修改</button>
+                <form method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button class="button-text" type="submit" name="delete" value={{ data.Cno }}>删除</button>
+                </form>
+                </span>
+            </td>
+        </tr>
+
+        <div class="form-popupfloat" id="updateForm" style="display: none;">
+            <br>
+            <span>修改</span>
+            <br>
+            <br>
+            <form method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <input type="hidden" name="update" value=1>
+                <input type="hidden" name="Cno" value={{ data.Cno }}>
+                <br><br>
+                <input type="text" name="newCno" value={{ data.Cno }} placeholder="课程号">
+                <br><br>
+                <input type="text" name="Cname" value={{ data.Cname }} placeholder="课程名">
+                <br><br>
+                <input type="text" name="Cpno" value={{ data.Cpno }}  placeholder="先修课">
+                <br><br>
+                <input type="text" name="Ccredit" value={{ data.Ccredit }}  placeholder="学分">
+                <br><br>
+                <button type="submit">提交</button>
+                <button type="button" onclick="closeUpdateForm()">取消</button>
+            </form>
+        </div>
+    {% endfor %}
+    </tbody>
+</table>
+
+<button class="lastbutton" onclick="openAddForm()">添加</button>
+
+<div class="form-popup" id="addForm" style="display: none;">
+    <br>
+    <span>添加学生</span>
+    <br>
+    <br>
+    <form method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="insert" value=1>
+        <input type="text" name="Cno" placeholder="课程号">
+        <br><br>
+        <input type="text" name="Cname" placeholder="课程名">
+        <br><br>
+        <input type="text" name="Cpno" placeholder="先修课">
+        <br><br>
+        <input type="text" name="Ccredit" placeholder="学分">
+        <br><br>
+        <button type="submit">提交</button>
+        <button type="button" onclick="closeAddForm()">取消</button>
+    </form>
+</div>
+
+
+</body>
+
+</html>

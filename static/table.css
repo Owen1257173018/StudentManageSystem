@@ -1,0 +1,76 @@
+div {
+    text-align: center;
+}
+
+table {
+    font-size: 20px;
+    /* 设置表格字体大小 */
+    width: 80%;
+    /* 设置表格宽度 */
+    margin: 0 auto;
+    margin-right: 20%;
+    /* 让表格在整个网页居中 */
+}
+
+input {
+    font-size: large;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+    /* 让单元格中的文字居中 */
+    /* 设置单元格内边距 */
+}
+
+th {
+    color: black;
+}
+
+button {
+    font-size: large;
+}
+
+.lastbutton {
+    margin: 10px 35%;
+}
+
+.form-popup {
+    width: 300px;
+    height:400px;
+    background-color: white;
+    display: none;
+    position: fixed;
+    top: 10%;
+    right: 40%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.button-text {
+        background: none;
+        border: none;
+        color: blue; /*设置按钮文字颜色*/
+        text-decoration: underline; /*添加下划线效果*/
+        cursor: pointer; /*添加鼠标悬停样式*/
+        padding: 0; /*去除默认内边距*/
+}
+
+.form-popupfloat {
+    width: 300px;
+    height:400px;
+    background-color: white;
+    display: none;
+    position: fixed;
+    top: 10%;
+    right: 40%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    float: right;
+}
+
+select{
+    font-size: large;
+    margin-left: 35%;
+}
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="/static/table.css">
+
+    <script src="/static/interation.js"></script>
+
+</head>
+
+<script>
+    window.csrfToken = '{{ csrf_token }}';
+</script>
+
+<body>
+
+
+<form method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <button type="submit" name="value" value="student">学生表</button>
+    <button type="submit" name="value" value="course">课程表</button>
+    <button type="submit" name="value" value="sc">选课表</button>
+    <select name="select">
+        <option value="Sno">学号</option>
+        <option value="Sname">姓名</option>
+        <option value="Ssex">性别</option>
+        <option value="Sage">年龄</option>
+        <option value="Sdept">专业</option>
+    </select>
+    <input type="search" name="content" value="">
+    <button type="submit">提交</button>
+</form>
+
+
+
+<br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>专业</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in all_data %}
+        <tr>
+            <td>{{ data.Sno }}</td>
+            <td>{{ data.Sname }}</td>
+            <td>{{ data.Ssex }}</td>
+            <td>{{ data.Sage }}</td>
+            <td>{{ data.Sdept }}</td>
+            <td>
+                <span>
+                 <button class="button-text" onclick="openUpdateForm()">修改</button>
+                <form method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button class="button-text" type="submit" name="delete" value={{ data.Sno }}>删除</button>
+                </form>
+                </span>
+            </td>
+        </tr>
+
+        <div class="form-popupfloat" id="updateForm" style="display: none;">
+            <br>
+            <span>修改</span>
+            <br>
+            <br>
+            <form method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <input type="hidden" name="update" value=1>
+                <input type="hidden" name="Sno" value={{ data.Sno }}>
+                <input type="text" name="newSno" value={{ data.Sno }} placeholder="学号">
+                <br><br>
+                <input type="text" name="Sname" value={{ data.Sname }} placeholder="姓名">
+                <br><br>
+                <label>性别：</label>
+                <input type="radio" name="Ssex" value="男" {% if data.Ssex == '男' %} checked {% endif %}> 男
+                <input type="radio" name="Ssex" value="女" {% if data.Ssex == '女' %} checked {% endif %}> 女
+                <br><br>
+                <input type="text" name="Sage" value={{ data.Sage }}  placeholder="年龄">
+                <br><br>
+                <input type="text" name="Sdept" value={{ data.Sdept }}  placeholder="专业">
+                <br><br>
+                <button type="submit">提交</button>
+                <button type="button" onclick="closeUpdateForm()">取消</button>
+            </form>
+        </div>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+<button class="lastbutton" onclick="openAddForm()">添加</button>
+
+<div class="form-popup" id="addForm" style="display: none;">
+    <br>
+    <span>添加学生</span>
+    <br>
+    <br>
+    <form method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="insert" value=1>
+        <input type="text" name="Sno" placeholder="学号">
+        <br><br>
+        <input type="text" name="Sname" placeholder="姓名">
+        <br><br>
+        <label>性别：</label>
+        <label><input type="radio" name="Ssex" value="男" checked> 男</label>
+        <label><input type="radio" name="Ssex" value="女"> 女</label>
+        <br><br>
+        <input type="text" name="Sage" placeholder="年龄">
+        <br><br>
+        <input type="text" name="Sdept" placeholder="专业">
+        <br><br>
+        <button type="submit">提交</button>
+        <button type="button" onclick="closeAddForm()">取消</button>
+    </form>
+</div>
+
+{#<div class="form-popupfloat" id="updateForm" style="display: none;">#}
+{#    <br>#}
+{#    <span>修改</span>#}
+{#    <br>#}
+{#    <br>#}
+{#    <form method="post">#}
+{#        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">#}
+{#        <input type="hidden" name="update" value=1>#}
+{#        <input type="hidden" id="updateSno" name="Sno" value="">#}
+{#        <input type="text" name="newSno" placeholder="学号">#}
+{#        <br><br>#}
+{#        <input type="text" name="Sname" placeholder="姓名">#}
+{#        <br><br>#}
+{#        <label>性别：</label>#}
+{#        <input type="radio" name="Ssex" value="男" checked> 男#}
+{#        <input type="radio" name="Ssex" value="女"> 女#}
+{#        <br><br>#}
+{#        <input type="text" name="Sage" placeholder="年龄">#}
+{#        <br><br>#}
+{#        <input type="text" name="Sdept" placeholder="专业">#}
+{#        <br><br>#}
+{#        <button type="submit">提交</button>#}
+{#        <button type="button" onclick="closeUpdateForm()">取消</button>#}
+{#    </form>#}
+{#</div>#}
+
+
+</body>
+
+</html>
